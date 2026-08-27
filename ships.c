@@ -23,3 +23,63 @@ char GenerateRandomEscortType(){ // generate random type function
         return 'E';
     }
 }
+float GetAngleRange(char type){
+    if (type == 'A')
+    {
+        return 20.0;
+    }
+    else if (type == 'B')
+    {
+        return 30.0;
+    }
+    else if (type == 'C')
+    {
+        return 25.0;
+    }
+    else if (type == 'D')
+    {
+        return 50.0;
+    }
+    else
+    {
+        return 70.0;
+    }
+}
+float GetMinimumAngle(){
+    return rand() % 46;
+}
+float GetMinimumVelocity(int maxVelocity){
+    return rand() % maxVelocity;
+}
+float GetMaximumVelocity(char type, int battleshipMaxVelocity){
+    if (type == 'A')
+    {
+        return 1.2 * battleshipMaxVelocity;
+    }
+    else
+    {
+        return rand() % battleshipMaxVelocity;
+    }
+}
+float GetImpactPower(char type){
+    if (type == 'A')
+    {
+        return 0.08;
+    }
+    else if (type == 'B')
+    {
+        return 0.06;
+    }
+    else if (type == 'C')
+    {
+        return 0.07;
+    }
+    else if (type == 'D')
+    {
+        return 0.05;
+    }
+    else
+    {
+        return 0.04;
+    }
+}

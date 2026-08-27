@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
     typedef struct {
         char type;
@@ -10,8 +12,9 @@
         int index;
         char type;
         int x,y;
+        float angleRange;
         float minAngle;
-        float maxAngle;
+        float maxAngle; 
         float minVelocity;
         float maxVelocity;
         float impactPower;
@@ -20,7 +23,14 @@
 
     int GenerateRandomCoordinate(int d);
     char GenerateRandomEscortType();
+    float GetAngleRange(char type);
+    float GetMinimumAngle();
+    float GetMinimumVelocity(int maxVelocity);
+    float GetMaximumVelocity(char type, int battleshipMaxVelocity);
+    float GetImpactPower(char type);
+   
 int main(){
+        srand(time(NULL)); //change the starting seed
     printf(" ADVANCED NAVAL BATTLE SIMULATOR \n");
 
 int d,n; //assigning variables
@@ -30,8 +40,8 @@ int d,n; //assigning variables
     scanf("%d",&d);
     printf("Enter the no of escort ships: ");
     scanf("%d",&n);
-    printf("Enter battleship types: ");
-    scanf(" %c",&B.type);
+    printf("Enter Battleship type (U/M/R/S): ");
+    scanf(" %c", &B.type);
     printf("Enter battleship X position: ");
     scanf("%d",&B.x);
  	printf("Enter battleship Y position: ");
@@ -55,7 +65,13 @@ int d,n; //assigning variables
             E[i].x = GenerateRandomCoordinate(d); //set the escort ship cordinates
             E[i].y = GenerateRandomCoordinate(d); 
             E[i].type = GenerateRandomEscortType(); //set the escort ship type
-            printf("Escort ship E%d | position = (%d,%d) | Type = E%c \n",E[i].index,E[i].x,E[i].y,E[i].type);
+            E[i].angleRange = GetAngleRange(E[i].type);
+            E[i].minAngle = GetMinimumAngle ();
+            E[i].maxAngle = E[i].minAngle + E[i].angleRange;
+            E[i].maxVelocity = GetMaximumVelocity(E[i].type, B.maxVelocity);
+            E[i].minVelocity = GetMinimumVelocity(E[i].maxVelocity);
+            E[i].impactPower = GetImpactPower(E[i].type); //ser the impact power
+            printf("Escort ship E%d | position = (%d,%d) | Type = E%c | AngleRange = %.1f |MinAngle = %1.f | MaxAngle = %1.f | MaxVelocity = %.1f | minVelocity = %1.f |Impact power = %.2f \n",E[i].index,E[i].x,E[i].y,E[i].type,E[i].angleRange,E[i].minAngle,E[i].maxAngle,E[i].maxVelocity,E[i].minVelocity,E[i].impactPower);
         }
 
    
