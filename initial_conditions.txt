@@ -1,0 +1,20 @@
+=== INITIAL BATTLE CONDITIONS ===
+
+Battleship
+Type = U
+Position = (10, 10)
+Max Velocity = 50.00
+Max Attack Range = 254.84
+
+Escort Ships
+
+Escort Ship E1
+Position = (213, 200)
+Type = ED
+Angle Range = 50.0
+Min Angle = 6.0
+Max Angle = 56.0
+Min Velocity = 0.0
+Max Velocity = 27.0
+Impact Power = 0.05
+
