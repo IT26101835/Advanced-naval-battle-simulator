@@ -1,0 +1,37 @@
+=== PART 1-B SIMULATION 1 ===
+
+Number of Path Points = 3
+
+=== Path Point 1 ===
+Battleship Position = (398, 309)
+Escort Ship E1
+Position = (59, 157)
+Distance from B = 371.52
+B Can Hit = YES
+E Can Hit B = NO
+
+Result = DESTROYED BY B
+Time to Hit = 4.87 seconds
+
+Escort Ship E2
+Position = (465, 157)
+Distance from B = 166.11
+B Can Hit = YES
+E Can Hit B = NO
+
+Result = DESTROYED BY B
+Time to Hit = 2.09 seconds
+
+Escort Ship E3
+Position = (344, 497)
+Distance from B = 195.60
+B Can Hit = YES
+E Can Hit B = NO
+
+Result = DESTROYED BY B
+Time to Hit = 2.47 seconds
+
+=== Path Point 2 ===
+Battleship Position = (404, 249)
+=== Path Point 3 ===
+Battleship Position = (65, 411)
