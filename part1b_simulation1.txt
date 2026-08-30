@@ -1,37 +1,212 @@
 === PART 1-B SIMULATION 1 ===
 
-Number of Path Points = 3
+Number of Path Points = 4
 
 === Path Point 1 ===
-Battleship Position = (398, 309)
+Battleship Position = (121, 277)
 Escort Ship E1
-Position = (59, 157)
-Distance from B = 371.52
-B Can Hit = YES
+Position = (439, 249)
+Distance from B = 319.23
+B Can Hit = NO
 E Can Hit B = NO
-
-Result = DESTROYED BY B
-Time to Hit = 4.87 seconds
 
 Escort Ship E2
-Position = (465, 157)
-Distance from B = 166.11
-B Can Hit = YES
+Position = (183, 103)
+Distance from B = 184.72
+B Can Hit = NO
 E Can Hit B = NO
-
-Result = DESTROYED BY B
-Time to Hit = 2.09 seconds
 
 Escort Ship E3
-Position = (344, 497)
-Distance from B = 195.60
+Position = (387, 155)
+Distance from B = 292.64
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E4
+Position = (128, 35)
+Distance from B = 242.10
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E5
+Position = (160, 406)
+Distance from B = 134.77
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E6
+Position = (245, 60)
+Distance from B = 249.93
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E7
+Position = (304, 210)
+Distance from B = 194.88
+B Can Hit = NO
+E Can Hit B = NO
+
+Battleship SURVIVED this point
+Number of Escort Ships hit by B = 0
+
+Battle Time at this Point = 0.00 seconds
+
+=== Path Point 2 ===
+Battleship Position = (14, 472)
+Escort Ship E1
+Position = (439, 249)
+Distance from B = 479.95
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E2
+Position = (183, 103)
+Distance from B = 405.86
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E3
+Position = (387, 155)
+Distance from B = 489.51
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E4
+Position = (128, 35)
+Distance from B = 451.62
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E5
+Position = (160, 406)
+Distance from B = 160.22
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E6
+Position = (245, 60)
+Distance from B = 472.34
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E7
+Position = (304, 210)
+Distance from B = 390.82
+B Can Hit = NO
+E Can Hit B = NO
+
+Battleship SURVIVED this point
+Number of Escort Ships hit by B = 0
+
+Battle Time at this Point = 0.00 seconds
+
+=== Path Point 3 ===
+Battleship Position = (293, 80)
+Escort Ship E1
+Position = (439, 249)
+Distance from B = 223.33
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E2
+Position = (183, 103)
+Distance from B = 112.38
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E3
+Position = (387, 155)
+Distance from B = 120.25
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E4
+Position = (128, 35)
+Distance from B = 171.03
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E5
+Position = (160, 406)
+Distance from B = 352.09
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E6
+Position = (245, 60)
+Distance from B = 52.00
 B Can Hit = YES
 E Can Hit B = NO
 
 Result = DESTROYED BY B
-Time to Hit = 2.47 seconds
+Time to Hit = 1.82 seconds
 
-=== Path Point 2 ===
-Battleship Position = (404, 249)
-=== Path Point 3 ===
-Battleship Position = (65, 411)
+Escort Ship E7
+Position = (304, 210)
+Distance from B = 130.46
+B Can Hit = NO
+E Can Hit B = NO
+
+Battleship SURVIVED this point
+Number of Escort Ships hit by B = 1
+
+Battle Time at this Point = 1.82 seconds
+
+=== Path Point 4 ===
+Battleship Position = (194, 464)
+Escort Ship E1
+Position = (439, 249)
+Distance from B = 325.96
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E2
+Position = (183, 103)
+Distance from B = 361.17
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E3
+Position = (387, 155)
+Distance from B = 364.32
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E4
+Position = (128, 35)
+Distance from B = 434.05
+B Can Hit = NO
+E Can Hit B = NO
+
+Escort Ship E5
+Position = (160, 406)
+Distance from B = 67.23
+B Can Hit = YES
+E Can Hit B = NO
+
+Result = DESTROYED BY B
+Time to Hit = 2.44 seconds
+
+Escort Ship E7
+Position = (304, 210)
+Distance from B = 276.80
+B Can Hit = NO
+E Can Hit B = NO
+
+Battleship SURVIVED this point
+Number of Escort Ships hit by B = 1
+
+Battle Time at this Point = 2.44 seconds
+
+
+=== FINAL SIMULATION 1 STATUS ===
+Battleship Status = SURVIVED
+
+Escort Ships Final Status:
+Escort Ship E1 = ALIVE
+Escort Ship E2 = ALIVE
+Escort Ship E3 = ALIVE
+Escort Ship E4 = ALIVE
+Escort Ship E5 = DESTROYED
+Escort Ship E6 = DESTROYED
+Escort Ship E7 = ALIVE
