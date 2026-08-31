@@ -1,65 +1,61 @@
-=== PART 1-B SIMULATION 1 ===
+=== PART 1-B SIMULATION 2 ===
 
 Number of Path Points = 5
+Gun Jams After Iteration = 2
+Minimum Angle After Jam = 20.00 degrees
 
 === Path Point 1 ===
 Battleship Position = (46, 669)
-Escort Ship E1
-Position = (617, 108)
+Battleship Gun Status = NORMAL
+
+Escort Ship Position = (617, 108)
 Distance from B = 800.48
 B Can Hit = YES
 E Can Hit B = NO
-
-Result = DESTROYED BY B
+Battleship Firing Angle = 25.87 degrees
 Time to Hit = 8.90 seconds
+Result = Escort Ship E1 DESTROYED BY B
 
-Escort Ship E2
-Position = (909, 379)
+Escort Ship Position = (909, 379)
 Distance from B = 910.42
 B Can Hit = YES
 E Can Hit B = NO
-
-Result = DESTROYED BY B
+Battleship Firing Angle = 31.63 degrees
 Time to Hit = 10.69 seconds
+Result = Escort Ship E2 DESTROYED BY B
 
-Escort Ship E3
-Position = (843, 889)
+Escort Ship Position = (843, 889)
 Distance from B = 826.81
 B Can Hit = YES
 E Can Hit B = NO
-
-Result = DESTROYED BY B
+Battleship Firing Angle = 27.10 degrees
 Time to Hit = 9.29 seconds
+Result = Escort Ship E3 DESTROYED BY B
 
-Escort Ship E4
-Position = (295, 439)
+Escort Ship Position = (295, 439)
 Distance from B = 338.97
 B Can Hit = YES
 E Can Hit B = NO
-
-Result = DESTROYED BY B
+Battleship Firing Angle = 9.71 degrees
 Time to Hit = 3.44 seconds
+Result = Escort Ship E4 DESTROYED BY B
 
-Escort Ship E5
-Position = (48, 869)
+Escort Ship Position = (48, 869)
 Distance from B = 200.01
 B Can Hit = YES
 E Can Hit B = NO
-
-Result = DESTROYED BY B
+Battleship Firing Angle = 5.66 degrees
 Time to Hit = 2.01 seconds
+Result = Escort Ship E5 DESTROYED BY B
 
-Escort Ship E6
-Position = (100, 742)
+Escort Ship Position = (100, 742)
 Distance from B = 90.80
 B Can Hit = YES
-E Can Hit B = YES
-
 Result = BATTLESHIP SUNK
 Battleship was sunk by Escort Ship E6
 
 
-=== FINAL SIMULATION 1 STATUS ===
+=== FINAL SIMULATION 2 STATUS ===
 Battleship Status = SUNK
 Sunk by Escort Ship E6
 
