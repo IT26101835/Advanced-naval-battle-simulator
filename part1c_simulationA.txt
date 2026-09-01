@@ -1,0 +1,58 @@
+=== PART 1-C - PART 1-A SIMULATION ===
+
+
+------- Battle Ship Position: (500,500) ------- 
+
+Escort ship 1 was hit by B
+Escort Ship Type: EA
+Escort Ship 1 Position: (785, 852)
+Distance from B: 452.91
+Firing angle from B: 13.19
+Time to hit: 4.65 seconds
+
+Escort ship 2 was hit by B
+Escort Ship Type: EB
+Escort Ship 2 Position: (586, 601)
+Distance from B: 132.65
+Firing angle from B: 3.74
+Time to hit: 1.33 seconds
+
+Escort ship 3 was hit by B
+Escort Ship Type: EA
+Escort Ship 3 Position: (762, 621)
+Distance from B: 288.59
+Firing angle from B: 8.22
+Time to hit: 2.92 seconds
+
+Escort ship 4 was hit by B
+Escort Ship Type: EA
+Escort Ship 4 Position: (263, 952)
+Distance from B: 510.37
+Firing angle from B: 15.02
+Time to hit: 5.28 seconds
+
+Escort ship 5 was hit by B
+Escort Ship Type: EB
+Escort Ship 5 Position: (880, 615)
+Distance from B: 397.02
+Firing angle from B: 11.46
+Time to hit: 4.05 seconds
+
+Escort ship 6 was hit by B
+Escort Ship Type: ED
+Escort Ship 6 Position: (502, 245)
+Distance from B: 255.01
+Firing angle from B: 7.24
+Time to hit: 2.57 seconds
+
+Escort ship 7 was hit by B
+Escort Ship Type: EC
+Escort Ship 7 Position: (951, 209)
+Distance from B: 536.73
+Firing angle from B: 15.89
+Time to hit: 5.58 seconds
+
+Battleship survived.
+Current Impact on B = 41.00%
+Escort ships hit by B: 7
+Total battle time: 5.58 seconds
