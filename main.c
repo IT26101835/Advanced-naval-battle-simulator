@@ -28,6 +28,7 @@
         float timeToHitFromB;
 
         int isAlive; // Stores whether the escort ship is still active
+        int hasFired; //check weather already attack battleship or not
 
     }EscortShip;
         // Functions for generating random Escort Ship properties
@@ -588,12 +589,225 @@ file = fopen("part1c_simulationA.txt", "w");
         fprintf(file, "Total battle time: %.2f seconds\n",totalBattleTime);
     }
    
-
-
-
-
-
 fclose(file);
+
+// Part 1-C - Part 1-B Simulation 1
+    printf("\n=== PART 1-C - PART 1-B SIMULATION 1 ===\n");
+
+currentImpact = 0;
+battleshipSunk = 0;
+sinkingEscortIndex = -1;
+hitEscortCount = 0;
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].hasFired = 0;
+    }
+
+    file = fopen("part1c_simulationB1.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 1-C Simulation 1 file.\n");
+        return 1;
+    }
+
+    fprintf(file, "=== PART 1-C - PART 1-B SIMULATION 1 ===\n\n");
+
+    for (int i = 0; i < k; i++){ //Battleship position change with k points
+        // Move battleship to the current path point
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nBattleship moved to Point %d\n", i + 1);
+        printf("Battleship Position = (%d, %d)\n", B.x, B.y);
+
+        fprintf(file, "\n=== Path Point %d ===\n", i + 1);
+        fprintf(file, "Battleship Position = (%d, %d)\n", B.x, B.y);
+
+        for (int j = 0; j < n; j++){ //Escort ships 
+            if (E[j].isAlive == 1){
+                int firedThisPoint = 0; // seperately E ships
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canBeHitByB = CanBattleshipHit(E[j].distanceFromB,B.maxAttackRange);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB,E[j].maxAttackRange);
+            // check if Escort ship has fired or not
+                if (E[j].canHitB == 1 && E[j].hasFired == 0){
+                    currentImpact = currentImpact + E[j].impactPower;
+                    E[j].hasFired = 1;
+                    firedThisPoint = 1; // E attacked B at this point
+                    if (currentImpact >= 1.0){
+                        battleshipSunk = 1;
+                        sinkingEscortIndex = E[j].index;
+                        break;
+                    }
+                }
+                if (battleshipSunk == 0 && E[j].canBeHitByB == 1){ //attacking B to E
+                    E[j].firingAngleFromB = CalculateFiringAngle(E[j].distanceFromB, B.maxVelocity);
+                    E[j].timeToHitFromB = CalculateTimeToHit(E[j].distanceFromB,B.maxVelocity,E[j].firingAngleFromB);
+                    E[j].isAlive = 0;
+                    hitEscortCount++;
+
+                }
+                fprintf(file, "\nEscort ship %d \n", E[j].index);
+                fprintf(file, "Escort Ship Type: E%c\n", E[j].type);
+                fprintf(file, "Escort Ship %d Position: (%d, %d)\n",E[j].index, E[j].x, E[i].y);
+                fprintf(file, "Distance from B: %.2f\n", E[j].distanceFromB);
+                fprintf(file, "B Can Hit: %d\n", E[j].canBeHitByB);
+                fprintf(file, "E Can Hit B: %d\n", E[j].canHitB);
+                fprintf(file, "Current Impact on B: %.2f%%\n", currentImpact * 100);
+                
+                if (firedThisPoint == 1){
+                    fprintf(file, "Escort attacked B\n");
+                }
+                else{
+                    fprintf(file, "Escort did not attack B\n");
+                }
+                if (E[j].isAlive == 0){ //after the B attack check weather is it escort ship is alive
+                    fprintf(file, "Result: Escort Ship destroyed by B\n");
+                }
+                else{
+                    fprintf(file, "Result: Escort Ship still alive\n");
+                }
+                
+            }
+        }
+        if (battleshipSunk == 1){ //if already sunk other paths cannot go
+            break;
+        }
+    }
+    if (battleshipSunk == 1){
+        printf("\nBattleship was sunk by Escort %d\n",sinkingEscortIndex);
+        fprintf(file, "\nBattleship was sunk by Escort %d\n",sinkingEscortIndex);
+    }
+    else{
+        printf("\nBattleship survived.\n");
+        printf("Current Impact on B = %.2f%%\n",currentImpact * 100);
+
+        fprintf(file, "\nBattleship survived.\n");
+        fprintf(file, "Current Impact on B = %.2f%%\n",currentImpact * 100);
+        fprintf(file, "Escort ships hit by B: %d\n",hitEscortCount);
+
+    }
+    fclose(file);
+
+    // Part 1-C - Part 1-B Simulation 2
+    printf("\n=== PART 1-C - PART 1-B SIMULATION 2 ===\n");
+
+currentImpact = 0;
+battleshipSunk = 0;
+sinkingEscortIndex = -1;
+hitEscortCount = 0;
+
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].hasFired = 0;
+    }
+    file = fopen("part1c_simulationB2.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 1-C Simulation 2 file.\n");
+        return 1;
+    }
+
+    fprintf(file, "=== PART 1-C - PART 1-B SIMULATION 2 ===\n\n");
+
+    for (int i = 0; i < k; i++){
+    // Move battleship to the current path point
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nBattleship moved to Point %d\n", i + 1);
+        printf("Battleship Position = (%d, %d)\n", B.x, B.y);
+
+        fprintf(file, "\n=== Path Point %d ===\n", i + 1);
+        if (i >= t){ //check and print the gun status
+            fprintf(file, "Gun Status: JAMMED\n");
+        }
+        else{
+            fprintf(file, "Gun Status: NORMAL\n");
+        }
+        fprintf(file, "Battleship Position = (%d, %d)\n", B.x, B.y);
+
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1){
+                int firedThisPoint = 0;
+
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canBeHitByB = CanBattleshipHit(E[j].distanceFromB,B.maxAttackRange);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB,E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1 && E[j].hasFired == 0){ //(check E can attck B or not) and (already fired or not)
+                    currentImpact = currentImpact + E[j].impactPower;
+
+                    E[j].hasFired = 1;
+                    firedThisPoint = 1;
+
+                    if (currentImpact >= 1.0){ //check the dammage amount
+                        battleshipSunk = 1;
+                        sinkingEscortIndex = E[j].index;
+                        break;
+                    }
+                }
+                if (battleshipSunk == 0 && E[j].canBeHitByB == 1){
+                    currentFiringAngle = CalculateFiringAngle(E[j].distanceFromB, B.maxVelocity);
+                    hitEscortCount++; //increment E count
+                    if (i >= t){
+                        if (currentFiringAngle < thetaMin){
+                            currentFiringAngle = 90.0 - currentFiringAngle;
+                        }
+                    }
+                    E[j].firingAngleFromB = currentFiringAngle;
+                    E[j].timeToHitFromB = CalculateTimeToHit(E[j].distanceFromB,B.maxVelocity,currentFiringAngle);
+                    E[j].isAlive = 0;
+                }
+                fprintf(file, "\nEscort ship %d \n", E[j].index);
+                fprintf(file, "Escort Ship Type: E%c\n", E[j].type);
+                fprintf(file, "Escort Ship %d Position: (%d, %d)\n",E[j].index, E[j].x, E[i].y);
+                fprintf(file, "Distance from B: %.2f\n", E[j].distanceFromB);
+                fprintf(file, "B Can Hit: %d\n", E[j].canBeHitByB);
+                fprintf(file, "E Can Hit B: %d\n", E[j].canHitB);
+                fprintf(file, "Current Impact on B: %.2f%%\n", currentImpact * 100);
+                
+                if (firedThisPoint == 1){ //check weather at this point E attcked B or not
+                    fprintf(file, "Escort attacked B\n");
+                }
+                else{
+                    fprintf(file, "Escort did not attack B\n");
+                }
+                if (E[j].isAlive == 0){ //after the B attack check weather is it escort ship is alive
+                    fprintf(file, "Result: Escort Ship destroyed by B\n");
+                    fprintf(file, "Firing angle from B: %.2f\n",E[j].firingAngleFromB);
+                    fprintf(file, "Time to hit: %.2f seconds\n",E[j].timeToHitFromB);
+                }
+                else{
+                    fprintf(file, "Result: Escort Ship still alive\n");
+                }
+
+            }
+        }
+        if (battleshipSunk == 1){
+            break;
+        }
+    }
+    //final printing details
+    if (battleshipSunk == 1){
+        printf("\nBattleship was sunk by Escort %d\n",sinkingEscortIndex);
+
+        fprintf(file, "\nBattleship was sunk by Escort %d\n",sinkingEscortIndex);
+    }
+    else{
+        printf("\nBattleship survived.\n");
+        printf("Current Impact on B = %.2f%%\n",currentImpact * 100);
+
+        fprintf(file, "\nBattleship survived.\n");
+        fprintf(file, "Current Impact on B = %.2f%%\n",currentImpact * 100);
+        fprintf(file, "Escort ships hit by B: %d\n",hitEscortCount);
+    }
+    fclose(file);
+
+
+
 
     return 0;
     

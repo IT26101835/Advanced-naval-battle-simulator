@@ -1,0 +1,261 @@
+=== PART 1-C - PART 1-B SIMULATION 1 ===
+
+
+=== Path Point 1 ===
+Battleship Position = (456, 801)
+
+Escort ship 1 
+Escort Ship Type: EE
+Escort Ship 1 Position: (841, 938)
+Distance from B: 408.65
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 0.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 2 
+Escort Ship Type: EB
+Escort Ship 2 Position: (926, 938)
+Distance from B: 545.55
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 0.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 3 
+Escort Ship Type: ED
+Escort Ship 3 Position: (708, 938)
+Distance from B: 397.18
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 0.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 4 
+Escort Ship Type: EC
+Escort Ship 4 Position: (376, 938)
+Distance from B: 111.04
+B Can Hit: 1
+E Can Hit B: 0
+Current Impact on B: 0.00%
+Escort did not attack B
+Result: Escort Ship destroyed by B
+
+Escort ship 5 
+Escort Ship Type: EA
+Escort Ship 5 Position: (152, 938)
+Distance from B: 327.57
+B Can Hit: 1
+E Can Hit B: 1
+Current Impact on B: 8.00%
+Escort attacked B
+Result: Escort Ship destroyed by B
+
+Escort ship 6 
+Escort Ship Type: ED
+Escort Ship 6 Position: (222, 938)
+Distance from B: 261.62
+B Can Hit: 1
+E Can Hit B: 1
+Current Impact on B: 13.00%
+Escort attacked B
+Result: Escort Ship destroyed by B
+
+Escort ship 7 
+Escort Ship Type: EA
+Escort Ship 7 Position: (869, 938)
+Distance from B: 776.87
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 8 
+Escort Ship Type: EE
+Escort Ship 8 Position: (858, 938)
+Distance from B: 420.40
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+=== Path Point 2 ===
+Battleship Position = (94, 523)
+
+Escort ship 1 
+Escort Ship Type: EE
+Escort Ship 1 Position: (841, 524)
+Distance from B: 854.54
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 2 
+Escort Ship Type: EB
+Escort Ship 2 Position: (926, 524)
+Distance from B: 832.00
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 3 
+Escort Ship Type: ED
+Escort Ship 3 Position: (708, 524)
+Distance from B: 614.68
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 7 
+Escort Ship Type: EA
+Escort Ship 7 Position: (869, 524)
+Distance from B: 863.15
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 8 
+Escort Ship Type: EE
+Escort Ship 8 Position: (858, 524)
+Distance from B: 862.84
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+=== Path Point 3 ===
+Battleship Position = (678, 981)
+
+Escort ship 1 
+Escort Ship Type: EE
+Escort Ship 1 Position: (841, 494)
+Distance from B: 168.58
+B Can Hit: 1
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship destroyed by B
+
+Escort ship 2 
+Escort Ship Type: EB
+Escort Ship 2 Position: (926, 494)
+Distance from B: 519.95
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 3 
+Escort Ship Type: ED
+Escort Ship 3 Position: (708, 494)
+Distance from B: 487.92
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 7 
+Escort Ship Type: EA
+Escort Ship 7 Position: (869, 494)
+Distance from B: 859.49
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 8 
+Escort Ship Type: EE
+Escort Ship 8 Position: (858, 494)
+Distance from B: 188.81
+B Can Hit: 1
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship destroyed by B
+
+=== Path Point 4 ===
+Battleship Position = (525, 924)
+
+Escort ship 2 
+Escort Ship Type: EB
+Escort Ship 2 Position: (926, 878)
+Distance from B: 566.39
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 3 
+Escort Ship Type: ED
+Escort Ship 3 Position: (708, 878)
+Distance from B: 467.32
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 7 
+Escort Ship Type: EA
+Escort Ship 7 Position: (869, 878)
+Distance from B: 853.40
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+=== Path Point 5 ===
+Battleship Position = (4, 368)
+
+Escort ship 2 
+Escort Ship Type: EB
+Escort Ship 2 Position: (926, 679)
+Distance from B: 935.10
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 3 
+Escort Ship Type: ED
+Escort Ship 3 Position: (708, 679)
+Distance from B: 715.19
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Escort ship 7 
+Escort Ship Type: EA
+Escort Ship 7 Position: (869, 679)
+Distance from B: 893.78
+B Can Hit: 0
+E Can Hit B: 0
+Current Impact on B: 13.00%
+Escort did not attack B
+Result: Escort Ship still alive
+
+Battleship survived.
+Current Impact on B = 13.00%
+Escort ships hit by B: 5
