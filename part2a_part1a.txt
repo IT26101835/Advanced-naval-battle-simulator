@@ -1,0 +1,50 @@
+=== PART 2-A : PART 1-A ===
+
+B firing delay TBq = 3.00 seconds
+
+Time 0.00 : B attacks Escort Ship 3
+Distance = 121.17
+Firing Angle = 5.35
+Time To Hit = 1.52 seconds
+
+Time 3.00 : B attacks Escort Ship 4
+Distance = 201.20
+Firing Angle = 8.98
+Time To Hit = 2.55 seconds
+
+Time 6.00 : B attacks Escort Ship 2
+Distance = 206.70
+Firing Angle = 9.24
+Time To Hit = 2.62 seconds
+
+Time 9.00 : B attacks Escort Ship 6
+Distance = 262.61
+Firing Angle = 11.87
+Time To Hit = 3.35 seconds
+
+Time 12.00 : B attacks Escort Ship 5
+Distance = 470.80
+Firing Angle = 23.10
+Time To Hit = 6.40 seconds
+
+Time 15.00 : B attacks Escort Ship 1
+Distance = 637.19
+Firing Angle = 38.80
+Time To Hit = 10.22 seconds
+
+
+=== ATTACK ORDER ===
+1. Escort Ship 3
+2. Escort Ship 4
+3. Escort Ship 2
+4. Escort Ship 6
+5. Escort Ship 5
+6. Escort Ship 1
+
+=== ESCORT FINAL STATUS ===
+Escort Ship 1 = DESTROYED
+Escort Ship 2 = DESTROYED
+Escort Ship 3 = DESTROYED
+Escort Ship 4 = DESTROYED
+Escort Ship 5 = DESTROYED
+Escort Ship 6 = DESTROYED

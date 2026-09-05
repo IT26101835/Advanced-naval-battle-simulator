@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include "ships.h"
 
 int GenerateRandomCoordinate(int d){ // generate random coordinate function 
     return rand() % (d+1);

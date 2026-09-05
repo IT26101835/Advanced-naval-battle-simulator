@@ -1,0 +1,58 @@
+=== PART 2-A : PART 1-B SIMULATION 2 ===
+
+TBq = 3.00 seconds
+Gun Jam Iteration = 2
+Theta Minimum = 20.00
+
+
+=== PATH POINT 1 ===
+B Position = (62, 193)
+Battleship Gun Status = NORMAL
+Time 0.00 : B attacks E6
+Firing Angle = 14.24
+Time To Hit = 4.01 seconds
+
+Time 3.00 : B attacks E3
+Firing Angle = 30.96
+Time To Hit = 8.39 seconds
+
+
+=== PATH POINT 2 ===
+B Position = (725, 507)
+Battleship Gun Status = NORMAL
+Time 6.00 : B attacks E4
+Firing Angle = 1.06
+Time To Hit = 0.30 seconds
+
+Time 9.00 : B attacks E2
+Firing Angle = 3.84
+Time To Hit = 1.09 seconds
+
+Time 12.00 : B attacks E5
+Firing Angle = 17.14
+Time To Hit = 4.81 seconds
+
+Time 15.00 : B attacks E1
+Firing Angle = 25.48
+Time To Hit = 7.02 seconds
+
+
+=== PATH POINT 3 ===
+B Position = (597, 233)
+Battleship Gun Status = JAMMED
+
+=== PATH POINT 4 ===
+B Position = (442, 879)
+Battleship Gun Status = JAMMED
+
+=== PATH POINT 5 ===
+B Position = (343, 760)
+Battleship Gun Status = JAMMED
+
+=== ATTACK ORDER ===
+1. Escort Ship 6
+2. Escort Ship 3
+3. Escort Ship 4
+4. Escort Ship 2
+5. Escort Ship 5
+6. Escort Ship 1

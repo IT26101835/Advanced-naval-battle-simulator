@@ -1,0 +1,70 @@
+=== PART 2-A : PART 1-B SIMULATION 1 ===
+
+TBq = 3.00 seconds
+
+Path Point 1 = (62, 193)
+Path Point 2 = (725, 507)
+Path Point 3 = (597, 233)
+Path Point 4 = (442, 879)
+Path Point 5 = (343, 760)
+
+=== PATH POINT 1 ===
+B Position = (62, 193)
+Time 0.00 : B attacks E6
+Distance = 311.08
+Angle = 14.24
+Time To Hit = 4.01 seconds
+
+Time 3.00 : B attacks E3
+Distance = 575.65
+Angle = 30.96
+Time To Hit = 8.39 seconds
+
+
+=== PATH POINT 2 ===
+B Position = (725, 507)
+Time 6.00 : B attacks E4
+Distance = 24.08
+Angle = 1.06
+Time To Hit = 0.30 seconds
+
+Time 9.00 : B attacks E2
+Distance = 87.09
+Angle = 3.84
+Time To Hit = 1.09 seconds
+
+Time 12.00 : B attacks E5
+Distance = 367.45
+Angle = 17.14
+Time To Hit = 4.81 seconds
+
+Time 15.00 : B attacks E1
+Distance = 506.74
+Angle = 25.48
+Time To Hit = 7.02 seconds
+
+
+=== PATH POINT 3 ===
+B Position = (597, 233)
+
+=== PATH POINT 4 ===
+B Position = (442, 879)
+
+=== PATH POINT 5 ===
+B Position = (343, 760)
+
+=== ATTACK ORDER ===
+1. Escort Ship 6
+2. Escort Ship 3
+3. Escort Ship 4
+4. Escort Ship 2
+5. Escort Ship 5
+6. Escort Ship 1
+
+=== FINAL ESCORT STATUS ===
+Escort Ship 1 = DESTROYED
+Escort Ship 2 = DESTROYED
+Escort Ship 3 = DESTROYED
+Escort Ship 4 = DESTROYED
+Escort Ship 5 = DESTROYED
+Escort Ship 6 = DESTROYED
