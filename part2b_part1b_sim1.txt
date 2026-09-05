@@ -1,0 +1,14 @@
+=== PART 2-B : PART 1-B SIMULATION 1 ===
+
+
+=== PATH POINT 1 ===
+B Position = (377, 337)
+Time 0.00 : B attacks E1
+
+=== PATH POINT 2 ===
+B Position = (819, 598)
+Time 1.00 : E4 fires at B
+Battleship SUNK by E4
+
+=== ATTACK ORDER ===
+1. Escort Ship 1

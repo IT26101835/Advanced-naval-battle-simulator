@@ -173,6 +173,7 @@ for (int i = 0; i < n; i++){
         printf("Minimum firing angle must be between 0 and 30 degrees.\n");
         return 1;
     }
+    //calling functions
 
 RunPart1BSimulation2(B, E, n, k, pathX, pathY, t, thetaMin);
 
@@ -195,11 +196,44 @@ RunPart2APart1BSim1(B, E, n, k, pathX, pathY, d, TBq);
 RunPart2APart1BSim2(B, E, n, k, pathX, pathY,t, thetaMin, TBq);
 
 RunPart2APart1CA(B, E, n, TBq);
+RunPart2APart1CB1(B, E, n, k, pathX, pathY, TBq);
 
-//RunPart2APart1CB1(B, E, n, k, pathX, pathY, TBq);
+RunPart2APart1CB2(B, E, n, k, pathX, pathY, t, thetaMin, TBq);
 
-//RunPart2APart1CB2(B, E, n, k, pathX, pathY, t, thetaMin, TBq);
 
+float TEA, TEB, TEC, TED, TEE;
+
+    printf("\nEnter firing delay for EA: ");
+    scanf("%f", &TEA);
+
+    printf("Enter firing delay for EB: ");
+    scanf("%f", &TEB);
+
+    printf("Enter firing delay for EC: ");
+    scanf("%f", &TEC);
+
+    printf("Enter firing delay for ED: ");
+    scanf("%f", &TED);
+
+    printf("Enter firing delay for EE: ");
+    scanf("%f", &TEE);
+
+RunPart2BPart1A(B, E, n,TBq,TEA, TEB, TEC, TED, TEE);
+
+
+RunPart2BPart1BSim1(B, E, n, k, pathX, pathY, TBq,TEA, TEB, TEC, TED, TEE);
+
+
+RunPart2BPart1BSim2(B, E, n,k, pathX, pathY,t, thetaMin, TBq,TEA, TEB, TEC, TED, TEE);
+
+
+RunPart2BPart1CA(B, E, n, TBq, TEA, TEB, TEC, TED, TEE);
+
+
+RunPart2BPart1CB1(B, E, n, k, pathX, pathY, TBq, TEA, TEB, TEC, TED, TEE);
+
+
+RunPart2BPart1CB2(B, E, n, k, pathX, pathY, t, thetaMin, TBq, TEA, TEB, TEC, TED, TEE);
 
     return 0;
     

@@ -1,0 +1,8 @@
+=== PART 2-B : PART 1-A ===
+
+Time 0.00 : B attacks E7
+Time 0.00 : E4 fires at B
+Battleship SUNK by E4
+
+=== ATTACK ORDER ===
+1. Escort Ship 7

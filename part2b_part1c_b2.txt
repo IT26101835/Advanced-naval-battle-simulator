@@ -1,0 +1,39 @@
+=== PART 2-B : PART 1-C B SIMULATION 2 ===
+
+
+=== PATH POINT 1 ===
+B Position = (377, 337)
+Gun Status = NORMAL
+Time 0.00 : B attacks E1
+Firing Angle = 9.83
+
+=== PATH POINT 2 ===
+B Position = (819, 598)
+Gun Status = NORMAL
+Time 1.00 : E4 attacks B
+Current Impact = 8.00%
+Time 1.00 : E8 attacks B
+Current Impact = 15.00%
+
+=== PATH POINT 3 ===
+B Position = (188, 240)
+Gun Status = JAMMED
+
+=== PATH POINT 4 ===
+B Position = (839, 111)
+Gun Status = JAMMED
+Time 3.00 : B attacks E5
+Firing Angle = 20.00
+Time 3.00 : E4 attacks B
+Current Impact = 23.00%
+
+=== PATH POINT 5 ===
+B Position = (451, 457)
+Gun Status = JAMMED
+
+=== ATTACK ORDER ===
+1. Escort Ship 1
+2. Escort Ship 5
+
+Battleship SURVIVED
+Final Impact = 23.00%

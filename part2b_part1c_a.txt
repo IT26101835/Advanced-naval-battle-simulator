@@ -1,0 +1,40 @@
+=== PART 2-B : PART 1-C A ===
+
+Time 0.00 : B attacks E7
+Time 0.00 : E4 attacks B
+Current Impact = 8.00%
+Time 2.00 : E4 attacks B
+Current Impact = 16.00%
+Time 3.00 : B attacks E1
+Time 4.00 : E4 attacks B
+Current Impact = 24.00%
+Time 6.00 : B attacks E8
+Time 6.00 : E4 attacks B
+Current Impact = 32.00%
+Time 8.00 : E4 attacks B
+Current Impact = 40.00%
+Time 9.00 : B attacks E2
+Time 10.00 : E4 attacks B
+Current Impact = 48.00%
+Time 12.00 : E4 attacks B
+Current Impact = 56.00%
+Time 14.00 : E4 attacks B
+Current Impact = 64.00%
+Time 16.00 : E4 attacks B
+Current Impact = 72.00%
+Time 18.00 : E4 attacks B
+Current Impact = 80.00%
+Time 20.00 : E4 attacks B
+Current Impact = 88.00%
+Time 22.00 : E4 attacks B
+Current Impact = 96.00%
+Time 24.00 : E4 attacks B
+Current Impact = 104.00%
+
+=== ATTACK ORDER ===
+1. Escort Ship 7
+2. Escort Ship 1
+3. Escort Ship 8
+4. Escort Ship 2
+
+Battleship SUNK

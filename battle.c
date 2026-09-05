@@ -846,7 +846,6 @@ void RunPart2APart1BSim2(BattleShip B, EscortShip E[], int n, int k, int pathX[]
         fprintf(file, "\n=== PATH POINT %d ===\n", i + 1);
         fprintf(file, "B Position = (%d, %d)\n", B.x, B.y);
 
-
         if (i < t){
             fprintf(file, "Battleship Gun Status = NORMAL\n");
         }
@@ -880,8 +879,6 @@ void RunPart2APart1BSim2(BattleShip B, EscortShip E[], int n, int k, int pathX[]
             currentTime = currentTime + TBq;
         }
     }
-
-
     fprintf(file, "\n=== ATTACK ORDER ===\n");
 
     for (int i = 0; i < attackCount; i++){
@@ -908,49 +905,31 @@ void RunPart2APart1CA(BattleShip B, EscortShip E[],int n, float TBq){
         return;
     }
     printf("\n=== PART 2-A : PART 1-C A ===\n");
-
     fprintf(file,"=== PART 2-A : PART 1-C A ===\n\n");
-
-
+    
     for (int i = 0; i < n; i++){
         E[i].isAlive = 1;
         E[i].hasFired = 0;
     }
-
-
     while (1){
         nearestIndex =FindNearestEscort(B, E, n);
-
-
         if (nearestIndex == -1){
             break;
         }
-
-
         attackOrder[attackCount] =E[nearestIndex].index;
-
         attackCount++;
-
-
+        
         printf("Time %.2f : B attacks E%d\n",currentTime,E[nearestIndex].index);
-
-
         fprintf(file, "Time %.2f : B attacks E%d\n", currentTime,E[nearestIndex].index);
-
-
+        
         E[nearestIndex].isAlive = 0;
-
-
         currentTime = currentTime + TBq;
     }
 // Remaining alive escorts can attack B once
     for (int i = 0; i < n; i++){
         if (E[i].isAlive == 1 && E[i].hasFired == 0){
             E[i].distanceFromB =CalculateDistance(B.x, B.y, E[i].x, E[i].y);
-
-
             E[i].canHitB = CanEscortHitBattleship(E[i].distanceFromB,E[i].maxAttackRange);
-
 
             if (E[i].canHitB == 1){ 
                 currentImpact = currentImpact + E[i].impactPower;
@@ -958,20 +937,17 @@ void RunPart2APart1CA(BattleShip B, EscortShip E[],int n, float TBq){
 
 
                 fprintf(file, "Escort E%d attacked B\n",E[i].index);
-
                 fprintf(file, "Current Impact on B = %.2f%%\n",currentImpact * 100);
             }
         }
     }
 
 
-    fprintf(file,
-            "\n=== ATTACK ORDER ===\n");
+    fprintf(file,"\n=== ATTACK ORDER ===\n");
 
     for (int i = 0; i < attackCount; i++){
         fprintf(file,"%d. Escort Ship %d\n",i + 1,attackOrder[i]);
     }
-
 
     if (currentImpact >= 1.0)
     {
@@ -981,9 +957,819 @@ void RunPart2APart1CA(BattleShip B, EscortShip E[],int n, float TBq){
     {
         fprintf(file,"\nBattleship Status = SURVIVED\n");
 
-        fprintf(file,"Cumulative Impact = %.2f%%\n",currentImpact * 100);
+        fprintf(file,"Current Impact = %.2f%%\n",currentImpact * 100);
+    }
+    fclose(file);
+}
+// PART 2-A -> PART 1-C B SIMULATION 1
+void RunPart2APart1CB1(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], float TBq){
+    FILE *file;
+
+    float currentTime = 0;
+    float currentImpact = 0;
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+
+    file = fopen("part2a_part1c_b1.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-A Part 1-C B1 file.\n");
+        return;
+    }
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].hasFired = 0;
+    }
+    for (int i = 0; i < k; i++){
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        fprintf(file, "\n=== PATH POINT %d ===\n",i + 1);
+        while (1){
+            nearestIndex = FindNearestEscort(B, E, n);
+            if (nearestIndex == -1){
+                break;
+            }
+
+            attackOrder[attackCount] = E[nearestIndex].index;
+            attackCount++;
+
+            fprintf(file,"Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+
+            E[nearestIndex].isAlive = 0;
+            currentTime = currentTime + TBq;
+        }
+// Alive E ships attack only once
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1 && E[j].hasFired == 0){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+
+
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+
+
+                if (E[j].canHitB == 1){
+                    currentImpact = currentImpact +E[j].impactPower;
+                    E[j].hasFired = 1;
+                    fprintf(file,"E%d attacked B\n",E[j].index);
+                    fprintf(file,"Current Impact = %.2f%%\n",currentImpact * 100);
+                }
+            }
+        }
+        if (currentImpact >= 1.0){
+            fprintf(file,"\nBattleship SUNK\n");
+
+            break;
+        }
     }
 
+
+    fprintf(file,"\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file,"%d. Escort Ship %d\n",i + 1,attackOrder[i]);
+    }
+
+
+    if (currentImpact < 1.0){
+        fprintf(file,"\nB SURVIVED\n");
+
+        fprintf(file,"Current Impact = %.2f%%\n",currentImpact * 100);
+    }
+    fclose(file);
+}
+
+
+// PART 2-A -> PART 1-C B SIMULATION 2
+void RunPart2APart1CB2(BattleShip B, EscortShip E[],int n, int k,int pathX[], int pathY[],int t, float thetaMin,float TBq){
+    FILE *file;
+
+    float currentTime = 0;
+    float currentImpact = 0;
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+    float currentFiringAngle;
+    
+    file = fopen("part2a_part1c_b2.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-A Part 1-C B2 file.\n");
+        return;
+    }
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].hasFired = 0;
+    }
+
+    for (int i = 0; i < k; i++){
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        fprintf(file,"\n=== PATH POINT %d ===\n",i + 1);
+        if (i < t){
+            fprintf(file,"Gun Status = NORMAL\n");
+        }
+        else{
+            fprintf(file,"Gun Status = JAMMED\n");
+        }
+
+        while (1){
+            nearestIndex = FindNearestEscort(B, E, n);
+            if (nearestIndex == -1){
+                break;
+            }
+            currentFiringAngle = CalculateFiringAngle(E[nearestIndex].distanceFromB,B.maxVelocity);
+            
+            if (i >= t){
+                if (currentFiringAngle < thetaMin){
+                    currentFiringAngle = thetaMin;
+                }
+            }
+            E[nearestIndex].firingAngleFromB = currentFiringAngle;
+            attackOrder[attackCount] = E[nearestIndex].index;
+
+            attackCount++;
+            fprintf(file,"Time %.2f : B attacks E%d\n",currentTime,E[nearestIndex].index);
+            fprintf(file,"Firing Angle = %.2f\n",currentFiringAngle);
+            E[nearestIndex].isAlive = 0;
+            currentTime = currentTime + TBq;
+        }
+// Alive escorts attack B only once
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1 && E[j].hasFired == 0){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y,E[j].x, E[j].y);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB,E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1){
+                    currentImpact =currentImpact +E[j].impactPower;
+                    E[j].hasFired = 1;
+                    fprintf(file,"E%d attacked B\n",E[j].index);
+                    fprintf(file,"Current Impact = %.2f%%\n",currentImpact * 100);
+                }
+            }
+        }
+        if (currentImpact >= 1.0){
+            fprintf(file,"\nBattleship SUNK\n");
+            break;
+        }
+    }
+
+    fprintf(file,"\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1,attackOrder[i]);
+    }
+
+    if (currentImpact < 1.0){
+        fprintf(file,"\nBattleship SURVIVED\n");
+        fprintf(file, "Current Impact = %.2f%%\n", currentImpact * 100);
+    }
+    fclose(file);
+}
+
+float GetEscortFiringDelay(char type, float TEA, float TEB, float TEC, float TED, float TEE){
+    if (type == 'A'){
+        return TEA;
+    }
+    else if (type == 'B'){
+        return TEB;
+    }
+    else if (type == 'C'){
+        return TEC;
+    }
+    else if (type == 'D'){
+        return TED;
+    }
+    else{
+        return TEE;
+    }
+}
+
+// PART 2-B -> PART 1-A
+// Single E hit can destroy B
+
+void RunPart2BPart1A(BattleShip B, EscortShip E[], int n, float TBq, float TEA, float TEB, float TEC, float TED, float TEE)
+{
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float delay;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+    int battleshipSunk = 0;
+
+    file = fopen("part2b_part1a.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-A file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-A ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    while (battleshipSunk == 0){
+
+        // B fires
+        if (currentTime >= nextBFireTime){
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+
+        // E ships fire
+        for (int i = 0; i < n; i++){
+
+            if (E[i].isAlive == 1){
+                E[i].distanceFromB = CalculateDistance(B.x, B.y, E[i].x, E[i].y);
+                E[i].canHitB = CanEscortHitBattleship(E[i].distanceFromB, E[i].maxAttackRange);
+
+                if (E[i].canHitB == 1 && currentTime >= E[i].nextFireTime){
+                    delay = GetEscortFiringDelay(E[i].type, TEA, TEB, TEC, TED, TEE);
+
+                    printf("Time %.2f : E%d fires at B\n", currentTime, E[i].index);
+                    fprintf(file, "Time %.2f : E%d fires at B\n", currentTime, E[i].index);
+
+                    E[i].nextFireTime = currentTime + delay;
+                    battleshipSunk = 1;
+
+                    printf("Battleship SUNK by E%d\n", E[i].index);
+                    fprintf(file, "Battleship SUNK by E%d\n", E[i].index);
+                    break;
+                }
+            }
+        }
+
+        if (battleshipSunk == 1){
+            break;
+        }
+
+        nearestIndex = FindNearestEscort(B, E, n);
+        int escortCanAttack = 0;
+
+        for (int i = 0; i < n; i++){
+            if (E[i].isAlive == 1){
+                E[i].distanceFromB = CalculateDistance(B.x, B.y, E[i].x, E[i].y);
+                E[i].canHitB = CanEscortHitBattleship(E[i].distanceFromB, E[i].maxAttackRange);
+
+                if (E[i].canHitB == 1){
+                    escortCanAttack = 1;
+                }
+            }
+        }
+
+        if (nearestIndex == -1 && escortCanAttack == 0){
+            break;
+        }
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (battleshipSunk == 0){
+        fprintf(file, "\nBattleship SURVIVED\n");
+    }
+
+    fclose(file);
+}
+
+// PART 2-B -> PART 1-B SIMULATION 1
+void RunPart2BPart1BSim1(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], float TBq,float TEA, float TEB, float TEC, float TED, float TEE)
+{
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float delay;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+    int battleshipSunk = 0;
+
+    file = fopen("part2b_part1b_sim1.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-B Simulation 1 file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-B SIMULATION 1 ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    for (int i = 0; i < k; i++){
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d - B Position = (%d, %d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\n=== PATH POINT %d ===\n", i + 1);
+        fprintf(file, "B Position = (%d, %d)\n", B.x, B.y);
+
+        // B fires
+        if (currentTime >= nextBFireTime){
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+
+        // E ships fire continuously
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1 && currentTime >= E[j].nextFireTime){
+                    delay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+
+                    printf("Time %.2f : E%d fires at B\n", currentTime, E[j].index);
+                    fprintf(file, "Time %.2f : E%d fires at B\n", currentTime, E[j].index);
+
+                    E[j].nextFireTime = currentTime + delay;
+                    battleshipSunk = 1;
+
+                    printf("Battleship SUNK by E%d\n", E[j].index);
+                    fprintf(file, "Battleship SUNK by E%d\n", E[j].index);
+
+                    break;
+                }
+            }
+        }
+
+        if (battleshipSunk == 1){
+            break;
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (battleshipSunk == 0){
+        fprintf(file, "\nBattleship SURVIVED\n");
+    }
+    fclose(file);
+}
+
+// PART 2-B -> PART 1-B SIMULATION 2
+// Gun jam
+void RunPart2BPart1BSim2(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], int t, float thetaMin,float TBq, float TEA, float TEB, float TEC,float TED, float TEE)
+{
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float delay;
+    float currentFiringAngle;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+    int battleshipSunk = 0;
+
+    file = fopen("part2b_part1b_sim2.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-B Simulation 2 file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-B SIMULATION 2 ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    for (int i = 0; i < k; i++){
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d - B Position = (%d, %d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\n=== PATH POINT %d ===\n", i + 1);
+        fprintf(file, "B Position = (%d, %d)\n", B.x, B.y);
+
+        if (i < t){
+            fprintf(file, "Gun Status = NORMAL\n");
+        }
+        else{
+            fprintf(file, "Gun Status = JAMMED\n");
+        }
+
+        // B fires
+        if (currentTime >= nextBFireTime){
+
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+                currentFiringAngle = CalculateFiringAngle(E[nearestIndex].distanceFromB, B.maxVelocity);
+
+                if (i >= t){
+                    if (currentFiringAngle < thetaMin){
+                        currentFiringAngle = thetaMin;
+                    }
+                }
+
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Firing Angle = %.2f\n", currentFiringAngle);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+// E ships fire continuously
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1 && currentTime >= E[j].nextFireTime){
+                    delay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+
+                    printf("Time %.2f : E%d fires at B\n", currentTime, E[j].index);
+                    fprintf(file, "Time %.2f : E%d fires at B\n", currentTime, E[j].index);
+
+                    E[j].nextFireTime = currentTime + delay;
+                    battleshipSunk = 1;
+
+                    printf("Battleship SUNK by E%d\n", E[j].index);
+                    fprintf(file, "Battleship SUNK by E%d\n", E[j].index);
+                    break;
+                }
+            }
+        }
+
+        if (battleshipSunk == 1){
+            break;
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (battleshipSunk == 0){
+        fprintf(file, "\nBattleship SURVIVED\n");
+    }
+    fclose(file);
+}
+// PART 2-B -> PART 1-C A
+// Continuous E firing + cumulative impact
+void RunPart2BPart1CA(BattleShip B, EscortShip E[], int n, float TBq,float TEA, float TEB, float TEC, float TED, float TEE){
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float delay;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+
+    file = fopen("part2b_part1c_a.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-C A file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-C A ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    while (currentImpact < 1.0){
+// B fires
+        if (currentTime >= nextBFireTime){
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+
+        int escortCanAttack = 0;
+// E ships fire continuously
+        for (int i = 0; i < n; i++){
+            if (E[i].isAlive == 1){
+                E[i].distanceFromB = CalculateDistance(B.x, B.y, E[i].x, E[i].y);
+                E[i].canHitB = CanEscortHitBattleship(E[i].distanceFromB, E[i].maxAttackRange);
+
+                if (E[i].canHitB == 1){
+                    escortCanAttack = 1;
+
+                    if (currentTime >= E[i].nextFireTime){
+                        delay = GetEscortFiringDelay(E[i].type, TEA, TEB, TEC, TED, TEE);
+                        currentImpact = currentImpact + E[i].impactPower;
+
+                        printf("Time %.2f : E%d attacks B\n", currentTime, E[i].index);
+                        printf("Current Impact = %.2f%%\n", currentImpact * 100);
+
+                        fprintf(file, "Time %.2f : E%d attacks B\n", currentTime, E[i].index);
+                        fprintf(file, "Current Impact = %.2f%%\n", currentImpact * 100);
+
+                        E[i].nextFireTime = currentTime + delay;
+
+                        if (currentImpact >= 1.0){
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (currentImpact >= 1.0){
+            break;
+        }
+
+        nearestIndex = FindNearestEscort(B, E, n);
+
+        if (nearestIndex == -1 && escortCanAttack == 0){
+            break;
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (currentImpact >= 1.0){
+        fprintf(file, "\nBattleship SUNK\n");
+    }
+    else{
+        fprintf(file, "\nBattleship SURVIVED\n");
+        fprintf(file, "Final Impact = %.2f%%\n", currentImpact * 100);
+    }
+    fclose(file);
+}
+// PART 2-B -> PART 1-C B SIMULATION 1
+void RunPart2BPart1CB1(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], float TBq, float TEA, float TEB, float TEC, float TED, float TEE){
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float delay;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+
+    file = fopen("part2b_part1c_b1.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-C B1 file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-C B SIMULATION 1 ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    for (int i = 0; i < k; i++){
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d - B Position = (%d, %d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\n=== PATH POINT %d ===\n", i + 1);
+        fprintf(file, "B Position = (%d, %d)\n", B.x, B.y);
+
+        // B fires
+        if (currentTime >= nextBFireTime){
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+    // E ships fire continuously
+        for (int j = 0; j < n; j++){
+            if (E[j].isAlive == 1){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1 && currentTime >= E[j].nextFireTime){
+                    delay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+                    currentImpact = currentImpact + E[j].impactPower;
+
+                    printf("Time %.2f : E%d attacks B\n", currentTime, E[j].index);
+                    printf("Current Impact = %.2f%%\n", currentImpact * 100);
+
+                    fprintf(file, "Time %.2f : E%d attacks B\n", currentTime, E[j].index);
+                    fprintf(file, "Current Impact = %.2f%%\n", currentImpact * 100);
+
+                    E[j].nextFireTime = currentTime + delay;
+                }
+            }
+        }
+
+        if (currentImpact >= 1.0){
+            printf("Battleship SUNK\n");
+            fprintf(file, "\nBattleship SUNK\n");
+            break;
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (currentImpact < 1.0){
+        fprintf(file, "\nBattleship SURVIVED\n");
+        fprintf(file, "Final Impact = %.2f%%\n", currentImpact * 100);
+    }
+    fclose(file);
+}
+// PART 2-B -> PART 1-C B SIMULATION 2
+// Continuous E firing + B gun jam
+void RunPart2BPart1CB2(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], int t, float thetaMin, float TBq, float TEA, float TEB, float TEC,float TED, float TEE){
+    FILE *file;
+
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float delay;
+    float currentFiringAngle;
+
+    int attackOrder[n];
+    int attackCount = 0;
+    int nearestIndex;
+
+    file = fopen("part2b_part1c_b2.txt", "w");
+
+    if (file == NULL){
+        printf("Error opening Part 2-B Part 1-C B2 file.\n");
+        return;
+    }
+
+    fprintf(file, "=== PART 2-B : PART 1-C B SIMULATION 2 ===\n\n");
+
+    for (int i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].nextFireTime = 0;
+    }
+
+    for (int i = 0; i < k; i++){
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d - B Position = (%d, %d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\n=== PATH POINT %d ===\n", i + 1);
+        fprintf(file, "B Position = (%d, %d)\n", B.x, B.y);
+
+        if (i < t){
+            fprintf(file, "Gun Status = NORMAL\n");
+        }
+        else{
+            fprintf(file, "Gun Status = JAMMED\n");
+        }
+
+        // B fires
+        if (currentTime >= nextBFireTime){
+            nearestIndex = FindNearestEscort(B, E, n);
+
+            if (nearestIndex != -1){
+                currentFiringAngle = CalculateFiringAngle(E[nearestIndex].distanceFromB, B.maxVelocity);
+
+                if (i >= t){
+                    if (currentFiringAngle < thetaMin){
+                        currentFiringAngle = thetaMin;
+                    }
+                }
+
+                attackOrder[attackCount] = E[nearestIndex].index;
+                attackCount++;
+
+                printf("Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Time %.2f : B attacks E%d\n", currentTime, E[nearestIndex].index);
+                fprintf(file, "Firing Angle = %.2f\n", currentFiringAngle);
+
+                E[nearestIndex].isAlive = 0;
+                nextBFireTime = currentTime + TBq;
+            }
+        }
+
+        // E ships fire continuously
+        for (int j = 0; j < n; j++){
+
+            if (E[j].isAlive == 1){
+                E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+                E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+
+                if (E[j].canHitB == 1 && currentTime >= E[j].nextFireTime){
+                    delay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+                    currentImpact = currentImpact + E[j].impactPower;
+
+                    printf("Time %.2f : E%d attacks B\n", currentTime, E[j].index);
+                    printf("Current Impact = %.2f%%\n", currentImpact * 100);
+
+                    fprintf(file, "Time %.2f : E%d attacks B\n", currentTime, E[j].index);
+                    fprintf(file, "Current Impact = %.2f%%\n", currentImpact * 100);
+
+                    E[j].nextFireTime = currentTime + delay;
+                }
+            }
+        }
+
+        if (currentImpact >= 1.0){
+            printf("Battleship SUNK\n");
+            fprintf(file, "\nBattleship SUNK\n");
+            break;
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\n=== ATTACK ORDER ===\n");
+
+    for (int i = 0; i < attackCount; i++){
+        fprintf(file, "%d. Escort Ship %d\n", i + 1, attackOrder[i]);
+    }
+
+    if (currentImpact < 1.0){
+        fprintf(file, "\nBattleship SURVIVED\n");
+        fprintf(file, "Final Impact = %.2f%%\n", currentImpact * 100);
+    }
 
     fclose(file);
 }
