@@ -18,7 +18,8 @@ void ShowInstructions(){
     printf("2. Battle Simulation\n");
     printf("   - Part 1 simulates basic attacks, Battleship movement and gun jamming.\n");
     printf("   - Part 2-A adds a firing delay for the Battleship.\n");
-    printf("   - Part 2-B allows Escort ships to fire continuously with firing delays.\n\n");
+    printf("   - Part 2-B allows Escort ships to fire continuously with firing delays.\n");
+    printf("   - Part 2-C reduces ship impact power based on the number of gun firings.\n\n");
 
     printf("3. Simulation Results\n");
     printf("   - Simulation results are saved in text files.\n");
@@ -64,7 +65,12 @@ void ShowStatistics(){
     printf("18. Part 2-B Part 1-C B1\n");
     printf("19. Part 2-B Part 1-C B2\n");
 
-    printf("\n20. Return to Main Menu\n");
+    printf("\n--- PART 2-C ---\n");
+    printf("20. Part 2-C Part 1-A\n");
+    printf("21. Part 2-C Part 1-B Simulation 1\n");
+    printf("22. Part 2-C Part 1-B Simulation 2\n");    
+
+    printf("\n23. Return to Main Menu\n");
 
     printf("Enter choice: ");
     scanf("%d", &choice);
@@ -127,6 +133,15 @@ void ShowStatistics(){
         file = fopen("part2b_part1c_b2.txt", "r");
     }
     else if (choice == 20){
+        file = fopen("part2c_part1c_a.txt", "r");
+    }
+    else if (choice == 21){
+        file = fopen("part2c_part1c_b1.txt", "r");
+    }
+    else if (choice == 22){
+        file = fopen("part2c_part1c_b2.txt", "r");
+    }
+    else if (choice == 23){
         return;
     }
     else{
@@ -371,6 +386,50 @@ void RunAllSimulations(){
     printf("Enter firing delay for EE: ");
     scanf("%f", &TEE);
 
+    float gammaB;
+    float gammaEA, gammaEB, gammaEC, gammaED, gammaEE;
+
+    printf("\n=== PART 2-C SETTINGS ===\n");
+
+    printf("Enter gamma value for Battleship: ");
+    scanf("%f", &gammaB);
+
+    printf("Enter gamma value for EA: ");
+    scanf("%f", &gammaEA);
+
+    printf("Enter gamma value for EB: ");
+    scanf("%f", &gammaEB);
+
+    printf("Enter gamma value for EC: ");
+    scanf("%f", &gammaEC);
+
+    printf("Enter gamma value for ED: ");
+    scanf("%f", &gammaED);
+
+    printf("Enter gamma value for EE: ");
+    scanf("%f", &gammaEE);
+
+    B.gamma = gammaB;
+
+    for (int i = 0; i < n; i++){
+
+        if (E[i].type == 'A'){
+            E[i].gamma = gammaEA;
+        }
+        else if (E[i].type == 'B'){
+            E[i].gamma = gammaEB;
+        }
+        else if (E[i].type == 'C'){
+            E[i].gamma = gammaEC;
+        }
+        else if (E[i].type == 'D'){
+            E[i].gamma = gammaED;
+        }
+        else{
+            E[i].gamma = gammaEE;
+        }
+    }
+
 
     RunPart2BPart1A(B, E, n, TBq, TEA, TEB, TEC, TED, TEE);
 
@@ -384,6 +443,12 @@ void RunAllSimulations(){
 
     RunPart2BPart1CB2(B, E, n, k, pathX, pathY,t, thetaMin, TBq, TEA, TEB, TEC, TED, TEE);
 
+    RunPart2CSimulationA(B, E, n, TBq, TEA, TEB, TEC, TED, TEE);
+
+    RunPart2CSimulationB1(B, E, n, k, pathX, pathY, TBq, TEA, TEB, TEC, TED, TEE);
+
+    RunPart2CSimulationB2(B, E, n, k, pathX, pathY, t, thetaMin, TBq, TEA, TEB, TEC, TED, TEE);
+
     printf("\n=== ALL SIMULATIONS COMPLETED ===\n");
 }
 
@@ -391,17 +456,46 @@ void RunAllSimulations(){
 int main(){
     int choice;
     int exitChoice;
-    unsigned int seed;
+    unsigned int seed; //no negative values
 
     seed = time(NULL);
     srand(seed);
 
     while (1){
         printf("\n");
-printf("\n");
-printf("                                         A D V A N C E D   N A V A L   B A T T L E\n");
-printf("                                                   S I M U L A T O R\n");
-printf("=====================================================================================================================\n\n");
+
+    printf("\n\n");
+
+    /* ==================== ADVANCED ==================== */
+
+    printf("                         █████  ██████  ██    ██  █████  ███    ██  ██████ ███████ ██████  \n");
+    printf("                        ██   ██ ██   ██ ██    ██ ██   ██ ████   ██ ██      ██      ██   ██ \n");
+    printf("                        ███████ ██   ██ ██    ██ ███████ ██ ██  ██ ██      █████   ██   ██ \n");
+    printf("                        ██   ██ ██   ██  ██  ██  ██   ██ ██  ██ ██ ██      ██      ██   ██ \n");
+    printf("                        ██   ██ ██████    ████   ██   ██ ██   ████  ██████ ███████ ██████  \n");
+
+    printf("\n");
+
+    /* ================= NAVAL BATTLE =================== */
+
+    printf("      ███    ██  █████  ██    ██  █████  ██                ██████   █████  ████████ ████████ ██      ███████\n");
+    printf("      ████   ██ ██   ██ ██    ██ ██   ██ ██                ██   ██ ██   ██    ██       ██    ██      ██     \n");
+    printf("      ██ ██  ██ ███████ ██    ██ ███████ ██                ██████  ███████    ██       ██    ██      █████  \n");
+    printf("      ██  ██ ██ ██   ██  ██  ██  ██   ██ ██                ██   ██ ██   ██    ██       ██    ██      ██     \n");
+    printf("      ██   ████ ██   ██   ████   ██   ██ ███████           ██████  ██   ██    ██       ██    ███████ ███████\n");
+
+    printf("\n");
+
+    /* ================== SIMULATOR ===================== */
+
+    printf("                 ███████ ██ ███    ███ ██    ██ ██       █████  ████████  ██████  ██████  \n");
+    printf("                 ██      ██ ████  ████ ██    ██ ██      ██   ██    ██    ██    ██ ██   ██ \n");
+    printf("                 ███████ ██ ██ ████ ██ ██    ██ ██      ███████    ██    ██    ██ ██████  \n");
+    printf("                      ██ ██ ██  ██  ██ ██    ██ ██      ██   ██    ██    ██    ██ ██   ██ \n");
+    printf("                 ███████ ██ ██      ██  ██████  ███████ ██   ██    ██     ██████  ██   ██ \n");
+
+    printf("\n\n");
+
         printf("1. Start Simulation\n");
         printf("2. View Instructions\n");
         printf("3. Simulation Statistics\n");

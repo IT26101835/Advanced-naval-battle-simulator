@@ -32,4 +32,11 @@ void RunPart2BPart1CB1(BattleShip B, EscortShip E[], int n, int k, int pathX[], 
 
 void RunPart2BPart1CB2(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], int t, float thetaMin, float TBq, float TEA, float TEB, float TEC, float TED, float TEE);
 
+float CalculateReducedImpact(float initialImpact, float gamma, int fireCount);
+
+void RunPart2CSimulationA(BattleShip B, EscortShip E[], int n, float TBq, float TEA, float TEB, float TEC, float TED, float TEE);
+
+void RunPart2CSimulationB1(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], float TBq, float TEA, float TEB, float TEC, float TED, float TEE);
+
+void RunPart2CSimulationB2(BattleShip B, EscortShip E[], int n, int k,int pathX[], int pathY[], int t, float thetaMin, float TBq, float TEA, float TEB, float TEC, float TED, float TEE);
 #endif

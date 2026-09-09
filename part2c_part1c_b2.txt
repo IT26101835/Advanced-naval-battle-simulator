@@ -1,0 +1,33 @@
+=== PART 2-C : PART 1-C B2 ===
+
+Path Point 1 : B = (865,850)
+Gun Status : NORMAL
+B attacked E4 | Angle = 37.31 | Impact = 1.0000 | Total Damage = 1.0000
+E4 destroyed.
+
+Path Point 2 : B = (756,233)
+Gun Status : NORMAL
+E1 attacked B | Impact = 0.0700 | B Damage = 0.0700
+E2 attacked B | Impact = 0.0800 | B Damage = 0.1500
+
+Path Point 3 : B = (631,547)
+Gun Status : JAMMED
+
+Path Point 4 : B = (326,760)
+Gun Status : JAMMED
+B attacked E3 | Angle = 36.77 | Impact = 0.9418 | Total Damage = 0.9418
+
+Path Point 5 : B = (498,315)
+Gun Status : JAMMED
+E1 attacked B | Impact = 0.0640 | B Damage = 0.2140
+
+Final Battleship Impact = 0.2140
+Battleship Fire Count = 2
+Battleship Current Impact Power = 0.9418
+
+Escort Ship Final Impact Factors:
+E1 Type C | Fire Count = 2 | Current Impact = 0.0640 | Damage Received = 0.0000 | Alive = 1
+E2 Type A | Fire Count = 1 | Current Impact = 0.0800 | Damage Received = 0.0000 | Alive = 1
+E3 Type E | Fire Count = 0 | Current Impact = 0.0400 | Damage Received = 0.9418 | Alive = 1
+E4 Type E | Fire Count = 0 | Current Impact = 0.0400 | Damage Received = 1.0000 | Alive = 0
+E5 Type D | Fire Count = 0 | Current Impact = 0.0500 | Damage Received = 0.0000 | Alive = 1

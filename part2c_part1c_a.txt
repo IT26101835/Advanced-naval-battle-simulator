@@ -1,0 +1,20 @@
+=== PART 2-C : PART 1-C A ===
+Time 0.00 : B attacked E1 | Impact = 1.0000 | Total Damage = 1.0000
+E1 destroyed.
+Time 0.00 : E2 attacked B | Impact = 0.0800 | B Damage = 0.0800
+Time 3.00 : B attacked E3 | Impact = 0.9418 | Total Damage = 0.9418
+Time 5.00 : E2 attacked B | Impact = 0.0746 | B Damage = 0.1546
+Time 6.00 : B attacked E3 | Impact = 0.8869 | Total Damage = 1.8287
+E3 destroyed.
+No more Escort ships in Battleship attack range.
+
+Final Battleship Impact = 0.1546
+Battleship Fire Count = 3
+Battleship Current Impact Power = 0.8869
+
+Escort Ship Final Impact Factors:
+E1 Type C | Fire Count = 0 | Current Impact = 0.0700 | Damage Received = 1.0000 | Alive = 0
+E2 Type A | Fire Count = 2 | Current Impact = 0.0746 | Damage Received = 0.0000 | Alive = 1
+E3 Type E | Fire Count = 0 | Current Impact = 0.0400 | Damage Received = 1.8287 | Alive = 0
+E4 Type E | Fire Count = 0 | Current Impact = 0.0400 | Damage Received = 0.0000 | Alive = 1
+E5 Type D | Fire Count = 0 | Current Impact = 0.0500 | Damage Received = 0.0000 | Alive = 1

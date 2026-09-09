@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "battle.h"
 
 void RunPart1A(BattleShip B, EscortShip E[], int n)
@@ -1769,6 +1770,359 @@ void RunPart2BPart1CB2(BattleShip B, EscortShip E[], int n, int k, int pathX[], 
     if (currentImpact < 1.0){
         fprintf(file, "\nBattleship SURVIVED\n");
         fprintf(file, "Final Impact = %.2f%%\n", currentImpact * 100);
+    }
+
+    fclose(file);
+}
+float CalculateReducedImpact(float initialImpact, float gamma, int fireCount)
+{
+    return initialImpact * exp(-gamma * fireCount);
+}
+
+void RunPart2CSimulationA(BattleShip B, EscortShip E[], int n, float TBq, float TEA, float TEB, float TEC, float TED, float TEE){
+    FILE *file;
+    int i;
+    int target;
+    int battleOver = 0;
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float firingDelay;
+
+    file = fopen("part2c_part1c_a.txt", "w");
+
+    B.fireCount = 0;
+    B.currentImpactPower = 1.0;
+
+    for (i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].fireCount = 0;
+        E[i].currentImpactPower = E[i].impactPower;
+        E[i].damageReceived = 0;
+        E[i].nextFireTime = 0;
+    }
+
+    printf("\n=== PART 2-C : PART 1-C A ===\n");
+    fprintf(file, "=== PART 2-C : PART 1-C A ===\n");
+
+    while (battleOver == 0){
+
+        target = FindNearestEscort(B, E, n);
+
+        if (target == -1){
+            printf("No more Escort ships in Battleship attack range.\n");
+            fprintf(file, "No more Escort ships in Battleship attack range.\n");
+            break;
+        }
+
+        if (currentTime >= nextBFireTime){
+            B.currentImpactPower = CalculateReducedImpact(1.0, B.gamma, B.fireCount);
+
+            E[target].damageReceived = E[target].damageReceived + B.currentImpactPower;
+
+            printf("Time %.2f : B attacked E%d | Impact = %.4f | Total Damage = %.4f\n",currentTime, E[target].index, B.currentImpactPower, E[target].damageReceived);
+            fprintf(file, "Time %.2f : B attacked E%d | Impact = %.4f | Total Damage = %.4f\n", currentTime, E[target].index, B.currentImpactPower, E[target].damageReceived);
+
+            B.fireCount++;
+
+            if (E[target].damageReceived >= 1.0){
+                E[target].isAlive = 0;
+
+                printf("E%d destroyed.\n", E[target].index);
+                fprintf(file, "E%d destroyed.\n", E[target].index);
+            }
+
+            nextBFireTime = currentTime + TBq;
+        }
+
+        for (i = 0; i < n; i++){
+
+            if (E[i].isAlive == 1){
+
+                E[i].distanceFromB = CalculateDistance(B.x, B.y, E[i].x, E[i].y);
+                E[i].canHitB = CanEscortHitBattleship(E[i].distanceFromB, E[i].maxAttackRange);
+
+                if (E[i].canHitB == 1 && currentTime >= E[i].nextFireTime){
+                    E[i].currentImpactPower = CalculateReducedImpact(E[i].impactPower, E[i].gamma, E[i].fireCount);
+
+                    currentImpact = currentImpact + E[i].currentImpactPower;
+
+                    printf("Time %.2f : E%d attacked B | Impact = %.4f | B Damage = %.4f\n", currentTime, E[i].index, E[i].currentImpactPower, currentImpact);
+
+                    fprintf(file, "Time %.2f : E%d attacked B | Impact = %.4f | B Damage = %.4f\n", currentTime, E[i].index, E[i].currentImpactPower, currentImpact);
+
+                    E[i].fireCount++;
+
+                    firingDelay = GetEscortFiringDelay(E[i].type, TEA, TEB, TEC, TED, TEE);
+                    E[i].nextFireTime = currentTime + firingDelay;
+
+                    if (currentImpact >= 1.0){
+                        printf("Battleship destroyed by cumulative impact.\n");
+                        fprintf(file, "Battleship destroyed by cumulative impact.\n");
+                        battleOver = 1;
+                        break;
+                    }
+                }
+            }
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\nFinal Battleship Impact = %.4f\n", currentImpact);
+    fprintf(file, "Battleship Fire Count = %d\n", B.fireCount);
+    fprintf(file, "Battleship Current Impact Power = %.4f\n", B.currentImpactPower);
+
+    fprintf(file, "\nEscort Ship Final Impact Factors:\n");
+
+    for (i = 0; i < n; i++){
+        fprintf(file, "E%d Type %c | Fire Count = %d | Current Impact = %.4f | Damage Received = %.4f | Alive = %d\n",
+                E[i].index, E[i].type, E[i].fireCount,
+                E[i].currentImpactPower, E[i].damageReceived, E[i].isAlive);
+    }
+
+    fclose(file);
+}
+
+void RunPart2CSimulationB1(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], float TBq, float TEA, float TEB, float TEC, float TED, float TEE){
+    FILE *file;
+    int i;
+    int j;
+    int target;
+    int battleOver = 0;
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float firingDelay;
+
+    file = fopen("part2c_part1c_b1.txt", "w");
+
+    B.fireCount = 0;
+    B.currentImpactPower = 1.0;
+
+    for (i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].fireCount = 0;
+        E[i].currentImpactPower = E[i].impactPower;
+        E[i].damageReceived = 0;
+        E[i].nextFireTime = 0;
+    }
+
+    printf("\n=== PART 2-C : PART 1-C B1 ===\n");
+    fprintf(file, "=== PART 2-C : PART 1-C B1 ===\n");
+
+    for (i = 0; i < k; i++){
+
+        if (battleOver == 1){
+            break;
+        }
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d : B = (%d,%d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\nPath Point %d : B = (%d,%d)\n", i + 1, B.x, B.y);
+
+        for (j = 0; j < n; j++){
+            E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+            E[j].canBeHitByB = CanBattleshipHit(E[j].distanceFromB, B.maxAttackRange);
+            E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+        }
+
+        target = FindNearestEscort(B, E, n);
+
+        if (target != -1 && currentTime >= nextBFireTime){
+            B.currentImpactPower = CalculateReducedImpact(1.0, B.gamma, B.fireCount);
+
+            E[target].damageReceived = E[target].damageReceived + B.currentImpactPower;
+
+            printf("B attacked E%d | Impact = %.4f | Total Damage = %.4f\n", E[target].index, B.currentImpactPower, E[target].damageReceived);
+
+            fprintf(file, "B attacked E%d | Impact = %.4f | Total Damage = %.4f\n", E[target].index, B.currentImpactPower, E[target].damageReceived);
+
+            B.fireCount++;
+
+            if (E[target].damageReceived >= 1.0){
+                E[target].isAlive = 0;
+
+                printf("E%d destroyed.\n", E[target].index);
+                fprintf(file, "E%d destroyed.\n", E[target].index);
+            }
+
+            nextBFireTime = currentTime + TBq;
+        }
+
+        for (j = 0; j < n; j++){
+
+            if (E[j].isAlive == 1 && E[j].canHitB == 1){
+
+                if (currentTime >= E[j].nextFireTime){
+                    E[j].currentImpactPower = CalculateReducedImpact(E[j].impactPower, E[j].gamma, E[j].fireCount);
+
+                    currentImpact = currentImpact + E[j].currentImpactPower;
+
+                    printf("E%d attacked B | Impact = %.4f | B Damage = %.4f\n", E[j].index, E[j].currentImpactPower, currentImpact);
+
+                    fprintf(file, "E%d attacked B | Impact = %.4f | B Damage = %.4f\n", E[j].index, E[j].currentImpactPower, currentImpact);
+
+                    E[j].fireCount++;
+
+                    firingDelay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+                    E[j].nextFireTime = currentTime + firingDelay;
+
+                    if (currentImpact >= 1.0){
+                        printf("Battleship destroyed.\n");
+                        fprintf(file, "Battleship destroyed.\n");
+                        battleOver = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\nFinal Battleship Impact = %.4f\n", currentImpact);
+    fprintf(file, "Battleship Fire Count = %d\n", B.fireCount);
+    fprintf(file, "Battleship Current Impact Power = %.4f\n", B.currentImpactPower);
+
+    fprintf(file, "\nEscort Ship Final Impact Factors:\n");
+
+    for (i = 0; i < n; i++){
+        fprintf(file, "E%d Type %c | Fire Count = %d | Current Impact = %.4f | Damage Received = %.4f | Alive = %d\n",
+                E[i].index, E[i].type, E[i].fireCount,
+                E[i].currentImpactPower, E[i].damageReceived, E[i].isAlive);
+    }
+
+    fclose(file);
+}
+
+
+void RunPart2CSimulationB2(BattleShip B, EscortShip E[], int n, int k, int pathX[], int pathY[], int t, float thetaMin, float TBq, float TEA, float TEB, float TEC, float TED, float TEE){
+    FILE *file;
+    int i;
+    int j;
+    int target;
+    int battleOver = 0;
+    float currentTime = 0;
+    float nextBFireTime = 0;
+    float currentImpact = 0;
+    float firingDelay;
+    float currentFiringAngle;
+
+    file = fopen("part2c_part1c_b2.txt", "w");
+
+    B.fireCount = 0;
+    B.currentImpactPower = 1.0;
+
+    for (i = 0; i < n; i++){
+        E[i].isAlive = 1;
+        E[i].fireCount = 0;
+        E[i].currentImpactPower = E[i].impactPower;
+        E[i].damageReceived = 0;
+        E[i].nextFireTime = 0;
+    }
+
+    printf("\n=== PART 2-C : PART 1-C B2 ===\n");
+    fprintf(file, "=== PART 2-C : PART 1-C B2 ===\n");
+
+    for (i = 0; i < k; i++){
+
+        if (battleOver == 1){
+            break;
+        }
+
+        B.x = pathX[i];
+        B.y = pathY[i];
+
+        printf("\nPath Point %d : B = (%d,%d)\n", i + 1, B.x, B.y);
+        fprintf(file, "\nPath Point %d : B = (%d,%d)\n", i + 1, B.x, B.y);
+
+        if (i < t){
+            printf("Gun Status : NORMAL\n");
+            fprintf(file, "Gun Status : NORMAL\n");
+        }
+        else{
+            printf("Gun Status : JAMMED\n");
+            fprintf(file, "Gun Status : JAMMED\n");
+        }
+
+        for (j = 0; j < n; j++){
+            E[j].distanceFromB = CalculateDistance(B.x, B.y, E[j].x, E[j].y);
+            E[j].canBeHitByB = CanBattleshipHit(E[j].distanceFromB, B.maxAttackRange);
+            E[j].canHitB = CanEscortHitBattleship(E[j].distanceFromB, E[j].maxAttackRange);
+        }
+        target = FindNearestEscort(B, E, n);
+
+        if (target != -1 && currentTime >= nextBFireTime){
+            currentFiringAngle = E[target].firingAngleFromB;
+
+            if (i >= t){
+                if (currentFiringAngle < thetaMin){
+                    currentFiringAngle = thetaMin;
+                }
+            }
+            B.currentImpactPower = CalculateReducedImpact(1.0, B.gamma, B.fireCount);
+
+            E[target].damageReceived = E[target].damageReceived + B.currentImpactPower;
+
+            printf("B attacked E%d | Angle = %.2f | Impact = %.4f | Total Damage = %.4f\n",E[target].index, currentFiringAngle, B.currentImpactPower, E[target].damageReceived);
+            fprintf(file, "B attacked E%d | Angle = %.2f | Impact = %.4f | Total Damage = %.4f\n", E[target].index, currentFiringAngle, B.currentImpactPower, E[target].damageReceived);
+
+            B.fireCount++;
+
+            if (E[target].damageReceived >= 1.0){
+                E[target].isAlive = 0;
+
+                printf("E%d destroyed.\n", E[target].index);
+                fprintf(file, "E%d destroyed.\n", E[target].index);
+            }
+
+            nextBFireTime = currentTime + TBq;
+        }
+
+        for (j = 0; j < n; j++){
+
+            if (E[j].isAlive == 1 && E[j].canHitB == 1){
+
+                if (currentTime >= E[j].nextFireTime){
+
+                    E[j].currentImpactPower = CalculateReducedImpact(E[j].impactPower, E[j].gamma, E[j].fireCount);
+
+                    currentImpact = currentImpact + E[j].currentImpactPower;
+
+                    printf("E%d attacked B | Impact = %.4f | B Damage = %.4f\n", E[j].index, E[j].currentImpactPower, currentImpact);
+
+                    fprintf(file, "E%d attacked B | Impact = %.4f | B Damage = %.4f\n", E[j].index, E[j].currentImpactPower, currentImpact);
+
+                    E[j].fireCount++;
+
+                    firingDelay = GetEscortFiringDelay(E[j].type, TEA, TEB, TEC, TED, TEE);
+                    E[j].nextFireTime = currentTime + firingDelay;
+
+                    if (currentImpact >= 1.0){
+                        printf("Battleship destroyed.\n");
+                        fprintf(file, "Battleship destroyed.\n");
+                        battleOver = 1;
+                        break;
+                    }
+                }
+            }
+        }
+
+        currentTime = currentTime + 1;
+    }
+
+    fprintf(file, "\nFinal Battleship Impact = %.4f\n", currentImpact);
+    fprintf(file, "Battleship Fire Count = %d\n", B.fireCount);
+    fprintf(file, "Battleship Current Impact Power = %.4f\n", B.currentImpactPower);
+
+    fprintf(file, "\nEscort Ship Final Impact Factors:\n");
+
+    for (i = 0; i < n; i++){
+        fprintf(file, "E%d Type %c | Fire Count = %d | Current Impact = %.4f | Damage Received = %.4f | Alive = %d\n",
+                E[i].index, E[i].type, E[i].fireCount,
+                E[i].currentImpactPower, E[i].damageReceived, E[i].isAlive);
     }
 
     fclose(file);

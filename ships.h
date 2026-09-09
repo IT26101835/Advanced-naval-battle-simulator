@@ -9,6 +9,10 @@
         
         float firingDelay;
         float nextFireTime;
+//use for 2-c
+        float gamma;
+        int fireCount;
+        float currentImpactPower;
     }BattleShip;
 
     typedef struct { // Structure to store Escort Ship details
@@ -33,6 +37,11 @@
         int hasFired; //check weather already attack battleship or not
 
         float nextFireTime;
+//use for 2-c
+        float gamma;
+        int fireCount;
+        float currentImpactPower;
+        float damageReceived;
 
     }EscortShip;
 
